@@ -4,51 +4,58 @@
  *
  */
 
-#include <iostream>
 #include <vector>
-#include <list>
-#include <algorithm>
 #include <cmath>
 using namespace std;
 
-void make_base(int L, vector<double> &A, vector<double> &tree)
+void make_base(vector<double>::size_type L,
+               vector<double> &A, vector<double> &tree, double cap)
 {
-    for (int i = A.size(); i < L; i++)
+    for (vector<double>::size_type i = A.size(); i < L; i++)
     {
-        A.push_back(1); // New bins will be empty
+        A.push_back(cap); // New bins will be empty
     }
-    for (int i = tree.size(); i < 4 * L + 5; i++)
+    for (vector<double>::size_type i = tree.size(); i < 4 * L + 5; i++)
     {
-        tree.push_back(1); // These values will be overwritten by build
+        tree.push_back(cap); // These values will be overwritten by build
     }
 }
 
-void build(int node, int start, int end,
+void build(vector<double>::size_type node,
+           vector<double>::size_type start,
+           vector<double>::size_type end,
            vector<double> &A, vector<double> &tree)
 {
+
     if (start == end)
     {
         tree[node] = A[start];
     }
     else
     {
-        int mid = (start + end) / 2;
+        vector<double>::size_type mid = (start + end) / 2;
+
         build(2 * node + 1, start, mid, A, tree);
         build(2 * node + 2, mid + 1, end, A, tree);
         tree[node] = max(tree[2 * node + 1], tree[2 * node + 2]);
     }
 }
 
-void update(int node, int start, int end, int idx, double val,
+void update(vector<double>::size_type node,
+            vector<double>::size_type start,
+            vector<double>::size_type end,
+            vector<double>::size_type idx,
+            double val,
             vector<double> &A, vector<double> &tree)
 {
+
     if (start == end)
     {
         A[idx] = tree[node] = val;
     }
     else
     {
-        int mid = (start + end) / 2;
+        vector<double>::size_type mid = (start + end) / 2;
         if (start <= idx && idx <= mid)
         {
             update(2 * node + 1, start, mid, idx, val, A, tree);
@@ -61,14 +68,17 @@ void update(int node, int start, int end, int idx, double val,
     }
 }
 
-int query(int node, int start, int end, double val,
+vector<double>::size_type query(vector<double>::size_type node,
+                                vector<double>::size_type start,
+                                vector<double>::size_type end,
+                                double val,
           vector<double> &tree)
 {
     if (start == end)
     {
         return (start);
     }
-    int mid = (start + end) / 2;
+    vector<double>::size_type mid = (start + end) / 2;
     if (tree[2 * node + 1] >= val || fabs(val - tree[2 * node + 1]) < __DBL_EPSILON__)
     {
         return (query(2 * node + 1, start, mid, val, tree));
@@ -76,37 +86,32 @@ int query(int node, int start, int end, double val,
     return (query(2 * node + 2, mid + 1, end, val, tree));
 }
 
-vector<int> ffd_fast(const vector<double> &items, double cap)
+vector<vector<double>::size_type> ffd_fast(const vector<double> &items, double cap)
 {
-    int n_items = items.size();
+    vector<double>::size_type n_items = items.size();
 
-    int b = 0; // Current number of bins
+    vector<double>::size_type b = 0; // Current number of bins
 
-    vector<int> IBM; // Item->bin matching: IBM[i] = bin of i-th item
+    vector<vector<double>::size_type> IBM; // Item->bin matching: IBM[i] = bin of i-th item
     vector<double> A;    // Vector with bin remaining sizes used by segment tree
     vector<double> tree; // Vector with segment tree's values
 
-    // Presort item list in descending order
-    vector<int> sInd(n_items);
-
-    for (int i = 0; i < n_items; i++)
+    for (vector<double>::size_type i = 0; i < n_items; i++)
     {
-        // int n = sInd[i];
-        int n = i;
-        double item_size = items[n];
+        double item_size = items[i];
 
         if (tree.empty() || tree[0] < item_size)
         {
-            int L;
+            vector<double>::size_type L;
             if (A.empty())
                 L = 1;
             else
                 L = 2 * A.size();
-            make_base(L, A, tree);
+            make_base(L, A, tree, cap);
             build(0, 0, A.size() - 1, A, tree);
         }
 
-        int idx = query(0, 0, A.size() - 1, item_size, tree);
+        vector<double>::size_type idx = query(0, 0, A.size() - 1, item_size, tree);
 
         if (idx < b)
         {
