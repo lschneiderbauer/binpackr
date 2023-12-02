@@ -6,6 +6,12 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/lschneiderbauer/binpackr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lschneiderbauer/binpackr/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/lschneiderbauer/binpackr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/lschneiderbauer/binpackr?branch=master)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/binpackr)](https://CRAN.R-project.org/package=binpackr)
 
 <!-- badges: end -->
 
@@ -39,7 +45,7 @@ bins <- bin_pack_ffd(x, cap = 130)
 
 # Number of bins needed to pack the items
 print(length(unique(bins)))
-#> [1] 396
+#> [1] 386
 ```
 
 ## Benchmarks
