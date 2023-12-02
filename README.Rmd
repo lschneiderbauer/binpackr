@@ -1,0 +1,125 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# binpackr
+
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/lschneiderbauer/binpackr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lschneiderbauer/binpackr/actions/workflows/R-CMD-check.yaml)
+
+<!-- badges: end -->
+
+This package implements the First Fit Decreasing algorithm to achieve one dimensional heuristic bin packing. Its run time is of order $\mathcal{O}(n\,log(n))$ where $n$ is the number of items to pack.
+
+## Installation
+
+You can install the development version of binpackr from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("lschneiderbauer/binpackr")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(binpackr)
+
+# Generate a vector of item weights
+x <- sample(100, 1000, replace = TRUE)
+
+# Pack those items into bins of capacity 130
+bins <- bin_pack_ffd(x, cap = 130)
+
+# Number of bins needed to pack the items
+print(length(unique(bins)))
+```
+
+## Benchmarks
+
+The implementation in this package is compared to an implementation of the same algorithm in the [BBmisc](https://github.com/berndbischl/BBmisc) package. The authors made in clear via the function documentation that speed was none of their concern. Further their implementation is written in R while this package uses a C++ implementation. Indeed, as expected, the current implementation is superior in terms of run time and memory consumption.
+
+```{r benchmark_calc, echo=FALSE, message=FALSE, warning=FALSE}
+source("./benchmark/benchmark.R")
+result <-
+  bmark(
+    list(
+      bbmisc = BBmisc::binPack,
+      cpp_ffd = partial(bin_pack_ffd, sort = FALSE),
+      cpp_ffd_sort = partial(bin_pack_ffd)
+    )
+  )
+```
+
+### Run time
+
+```{r benchmark_runtime, echo = FALSE}
+result |>
+  mutate(
+    ymin = as.numeric(mean - std),
+    ymax = as.numeric(mean + std),
+    median = as.numeric(median)
+  ) |>
+  ggplot(aes(x = n, y = median, color = name, fill = name,
+             ymin = ymin, ymax = ymax)) +
+  scale_x_continuous(
+    name = "Number of items",
+    labels = scales::label_number(
+      scale_cut = scales::cut_long_scale()
+    )
+  ) +
+  scale_y_continuous(
+    name = "Runtime (in seconds)",
+    labels = scales::label_number(
+      suffix = "s",
+      scale_cut = scales::cut_long_scale()
+    )
+  ) +
+  geom_ribbon(alpha = 0.3) +
+  geom_point() +
+  geom_line() +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  labs(fill = "Algorithm", color = "Algorithm")
+```
+
+### Memory allocation
+
+```{r benchmark_memory, echo = FALSE}
+  result |>
+  ggplot(aes(x = n, y = mem_alloc, color = name)) +
+  scale_x_continuous(
+    name = "Number of items",
+    labels = scales::label_number(
+      scale_cut = scales::cut_long_scale()
+    )
+  ) +
+  scale_y_continuous(
+    name = "Memory allocation",
+    labels = scales::label_number(
+      suffix = "B",
+      scale_cut = scales::cut_long_scale()
+    )
+  ) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(vars(name), scales = "free_y", ncol = 1) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  labs(fill = "Algorithm", color = "Algorithm")
+
+```
