@@ -12,7 +12,7 @@
 #'          label at position `i` determines the assignment of the `i`th item
 #'          with size `x[i]` to a bin.
 #' @examples
-#' # Generate a vector of item weights
+#' # Generate a vector of item sizes
 #' x <- sample(100, 1000, replace = TRUE)
 #'
 #' # Pack those items into bins of capacity 130

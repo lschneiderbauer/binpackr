@@ -9,7 +9,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%",
+  dpi = 300,
+  fig.width = 8
 )
 ```
 
@@ -34,12 +36,12 @@ devtools::install_github("lschneiderbauer/binpackr")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows to retrieve the solution for the bin packing problem.
 
 ```{r example}
 library(binpackr)
 
-# Generate a vector of item weights
+# Generate a vector of item sizes
 x <- sample(100, 1000, replace = TRUE)
 
 # Pack those items into bins of capacity 130
@@ -89,7 +91,7 @@ result |>
       scale_cut = scales::cut_long_scale()
     )
   ) +
-  geom_ribbon(alpha = 0.3) +
+  geom_ribbon(alpha = 0.3, linewidth = 0) +
   geom_point() +
   geom_line() +
   theme_minimal() +

@@ -25,12 +25,13 @@ devtools::install_github("lschneiderbauer/binpackr")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows to retrieve the solution for the bin
+packing problem.
 
 ``` r
 library(binpackr)
 
-# Generate a vector of item weights
+# Generate a vector of item sizes
 x <- sample(100, 1000, replace = TRUE)
 
 # Pack those items into bins of capacity 130
@@ -38,7 +39,7 @@ bins <- bin_pack_ffd(x, cap = 130)
 
 # Number of bins needed to pack the items
 print(length(unique(bins)))
-#> [1] 393
+#> [1] 396
 ```
 
 ## Benchmarks

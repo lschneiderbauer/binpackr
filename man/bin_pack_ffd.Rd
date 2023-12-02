@@ -27,7 +27,7 @@ with size \code{x[i]} to a bin.
 1D bin packing "First Fit (Decreasing)" algorithm
 }
 \examples{
-# Generate a vector of item weights
+# Generate a vector of item sizes
 x <- sample(100, 1000, replace = TRUE)
 
 # Pack those items into bins of capacity 130
