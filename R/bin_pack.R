@@ -28,6 +28,9 @@ bin_pack_ffd <- function(x, cap, sort = TRUE) {
   stopifnot(length(cap) == 1)
   stopifnot(is.logical(sort))
 
+  x <- as.numeric(x)
+  cap <- as.numeric(cap)
+
   if (sort) {
     ord <- order(x, decreasing = TRUE)
 
