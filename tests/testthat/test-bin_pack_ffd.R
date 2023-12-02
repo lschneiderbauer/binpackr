@@ -21,3 +21,17 @@ test_that("Particular examples are correct.", {
     c(0, 0, 1, 0, 1)
   )
 })
+
+test_that("Size bigger then cap simply yield one bin.", {
+  x <- c(1.1, 1.22, 0.3, 0.2)
+
+  expect_equal(
+    bin_pack_ffd(x, cap = 1, sort = TRUE),
+    c(1, 0, 2, 2)
+  )
+
+  expect_equal(
+    bin_pack_ffd(x, cap = 1, sort = FALSE),
+    c(0, 1, 2, 2)
+  )
+})
