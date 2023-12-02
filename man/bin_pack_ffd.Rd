@@ -7,18 +7,33 @@
 bin_pack_ffd(x, cap, sort = TRUE)
 }
 \arguments{
-\item{x}{A numeric vector of values to be fit into bins.}
+\item{x}{A numeric vector of item sizes to be fit into bins. Each value
+represents the size of an atomic item.}
 
-\item{cap}{Bin capacity in units of values in \code{x}. A scalar value.}
+\item{cap}{Bin capacity in units of values in \code{x}. A scalar value. If
+an individual item size is above \code{cap} a single bin is reserved
+for this item.}
 
-\item{sort}{Determines whether the input vector should be sorted in decreasing
-order before applying the "First Fit" algorithm ("First Fit Decreasing").}
+\item{sort}{Determines whether the input vector should be sorted in
+decreasing order before applying the "First Fit" algorithm
+("First Fit Decreasing").}
 }
 \value{
 A integer vector of labels of the same length as \code{x}. The integer
 label at position \code{i} determines the assignment of the \code{i}th item
-with weight \code{x[i]} to a bin.
+with size \code{x[i]} to a bin.
 }
 \description{
 1D bin packing "First Fit (Decreasing)" algorithm
+}
+\examples{
+# Generate a vector of item weights
+x <- sample(100, 1000, replace = TRUE)
+
+# Pack those items into bins of capacity 130
+bins <- bin_pack_ffd(x, cap = 130)
+
+# Number of bins needed to pack the items
+print(length(unique(bins)))
+
 }
