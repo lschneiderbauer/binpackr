@@ -1,9 +1,9 @@
 Package: binpackr
-Title: What the Package Does (One Line, Title Case)
+Title: Fast Bin Packing
 Version: 0.0.0.9000
 Authors@R: 
     person("Lukas", "Schneiderbuaer", , "lukas.schneiderbauer@gmail.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: This package implements the First Fit Decreasing algorithm to achieve one dimensional heuristic bin packing. Runtime is of order O(n log(n)) where n is the number of items to pack.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
