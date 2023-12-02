@@ -4,3 +4,4 @@
 ^benchmark$
 ^\.github$
 ^README\.Rmd$
+^codecov\.yml$
