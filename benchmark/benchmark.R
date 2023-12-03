@@ -7,7 +7,7 @@ bmark <- function(fns) {
   reduce(
     map(
       # seq(1, 10000, length.out = 2),
-      seq(1, 30000, length.out = 10),
+      seq(1, 50000, length.out = 20),
       function(n) {
         x <- sample(100, n, replace = TRUE) / 1000
         cap <- 1
@@ -66,7 +66,16 @@ bmark <- function(fns) {
   )
 }
 
+result <-
+  bmark(
+    list(
+      bbmisc = BBmisc::binPack,
+      cpp_ffd = partial(bin_pack_ffd, sort = FALSE),
+      cpp_ffd_sort = partial(bin_pack_ffd)
+    )
+  )
 
+saveRDS(result, "./benchmark/results.rds")
 
 # result |>
 #   filter(n > 1) |>
