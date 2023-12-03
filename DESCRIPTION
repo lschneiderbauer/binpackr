@@ -4,7 +4,7 @@ Version: 0.1.0
 Authors@R: 
     person("Lukas", "Schneiderbauer", email = "lukas.schneiderbauer@gmail.com", role = c("aut", "cre", "cph"))
 Description: Implements the First Fit Decreasing algorithm to achieve one dimensional heuristic bin packing. Runtime is of order O(n log(n)) where n is the number of items to pack.
-License: MIT + file LICENSE
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
