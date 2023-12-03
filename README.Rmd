@@ -27,7 +27,13 @@ This package implements the First Fit Decreasing algorithm to achieve one dimens
 
 ## Installation
 
-You can install the development version of binpackr from [GitHub](https://github.com/) with:
+You can install the latest CRAN release of binpackr with:
+
+``` r
+install.packages("binpackr")
+```
+
+Alternatively, you can install the development version of binpackr from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")

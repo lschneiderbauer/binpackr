@@ -21,7 +21,13 @@ $\mathcal{O}(n\,log(n))$ where $n$ is the number of items to pack.
 
 ## Installation
 
-You can install the development version of binpackr from
+You can install the latest CRAN release of binpackr with:
+
+``` r
+install.packages("binpackr")
+```
+
+Alternatively, you can install the development version of binpackr from
 [GitHub](https://github.com/) with:
 
 ``` r
