@@ -42,6 +42,7 @@ This is a basic example which shows to retrieve the solution for the bin packing
 library(binpackr)
 
 # Generate a vector of item sizes
+set.seed(42)
 x <- sample(100, 1000, replace = TRUE)
 
 # Pack those items into bins of capacity 130
@@ -53,18 +54,13 @@ print(length(unique(bins)))
 
 ## Benchmarks
 
-The implementation in this package is compared to an implementation of the same algorithm in the [BBmisc](https://github.com/berndbischl/BBmisc) package. The authors made in clear via the function documentation that speed was none of their concern. Further their implementation is written in R while this package uses a C++ implementation. Indeed, as expected, the current implementation is superior in terms of run time and memory consumption.
+The implementation in this package is compared to an implementation of the same algorithm in the [BBmisc](https://github.com/berndbischl/BBmisc) package. The authors made it clear that speed was none of their concern. BBmisc's implementation is written in R while this package uses a C++ implementation.
 
 ```{r benchmark_calc, echo=FALSE, message=FALSE, warning=FALSE}
-source("./benchmark/benchmark.R")
-result <-
-  bmark(
-    list(
-      bbmisc = BBmisc::binPack,
-      cpp_ffd = partial(bin_pack_ffd, sort = FALSE),
-      cpp_ffd_sort = partial(bin_pack_ffd)
-    )
-  )
+result <- readRDS("./benchmark/results.rds")
+
+library(ggplot2)
+library(dplyr)
 ```
 
 ### Run time
@@ -76,8 +72,10 @@ result |>
     ymax = as.numeric(mean + std),
     median = as.numeric(median)
   ) |>
-  ggplot(aes(x = n, y = median, color = name, fill = name,
-             ymin = ymin, ymax = ymax)) +
+  ggplot(aes(
+    x = n, y = median, color = name, fill = name,
+    ymin = ymin, ymax = ymax
+  )) +
   scale_x_continuous(
     name = "Number of items",
     labels = scales::label_number(
@@ -96,13 +94,13 @@ result |>
   geom_line() +
   theme_minimal() +
   theme(legend.position = "bottom") +
-  labs(fill = "Algorithm", color = "Algorithm")
+  labs(fill = "Implementation", color = "Implementation")
 ```
 
 ### Memory allocation
 
 ```{r benchmark_memory, echo = FALSE}
-  result |>
+result |>
   ggplot(aes(x = n, y = mem_alloc, color = name)) +
   scale_x_continuous(
     name = "Number of items",
@@ -122,6 +120,5 @@ result |>
   facet_wrap(vars(name), scales = "free_y", ncol = 1) +
   theme_minimal() +
   theme(legend.position = "bottom") +
-  labs(fill = "Algorithm", color = "Algorithm")
-
+  labs(fill = "Implementation", color = "Implementation")
 ```

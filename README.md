@@ -38,6 +38,7 @@ packing problem.
 library(binpackr)
 
 # Generate a vector of item sizes
+set.seed(42)
 x <- sample(100, 1000, replace = TRUE)
 
 # Pack those items into bins of capacity 130
@@ -45,7 +46,7 @@ bins <- bin_pack_ffd(x, cap = 130)
 
 # Number of bins needed to pack the items
 print(length(unique(bins)))
-#> [1] 386
+#> [1] 389
 ```
 
 ## Benchmarks
@@ -53,10 +54,9 @@ print(length(unique(bins)))
 The implementation in this package is compared to an implementation of
 the same algorithm in the
 [BBmisc](https://github.com/berndbischl/BBmisc) package. The authors
-made in clear via the function documentation that speed was none of
-their concern. Further their implementation is written in R while this
-package uses a C++ implementation. Indeed, as expected, the current
-implementation is superior in terms of run time and memory consumption.
+made it clear that speed was none of their concern. BBmisc’s
+implementation is written in R while this package uses a C++
+implementation.
 
 ### Run time
 
