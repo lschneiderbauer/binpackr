@@ -1,7 +1,7 @@
 /*
- * from
+ * code is inspired from a stack exchange answer from George Vidalakis,
  * https://cs.stackexchange.com/questions/108859/bin-packing-first-fit-problem-in-on-log-n-time
- *
+ * and modified as required.
  */
 
 #include <vector>
