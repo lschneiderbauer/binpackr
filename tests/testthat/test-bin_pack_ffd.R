@@ -22,6 +22,30 @@ test_that("Particular examples are correct.", {
   )
 })
 
+test_that("Equal sized items get distributed correctly.", {
+  hedgehog::forall(
+    list(
+      size = hedgehog::gen.int(100),
+      length = hedgehog::gen.int(1000),
+      cap_factor = hedgehog::gen.int(10)
+    ),
+    function(size, length, cap_factor) {
+      x <- rep(size, length)
+      cap <- size * cap_factor
+
+      expect_equal(
+        length(unique((bin_pack_ffd(x, cap)))),
+        ceiling(length * size / cap)
+      )
+
+      expect_equal(
+        length(unique((bin_pack_ffd(x, cap, sort = FALSE)))),
+        ceiling(length * size / cap)
+      )
+    }
+  )
+})
+
 test_that("Size bigger then cap simply yield one bin.", {
   x <- c(1.1, 1.22, 0.3, 0.2)
 
