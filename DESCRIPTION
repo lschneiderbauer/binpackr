@@ -1,5 +1,5 @@
 Package: binpackr
-Title: Fast 1D Bin Packing
+Title: Fast 1d Bin Packing
 Version: 0.0.0.9000
 Authors@R: 
     person("Lukas", "Schneiderbauer", email = "lukas.schneiderbauer@gmail.com", role = c("aut", "cre", "cph"))
