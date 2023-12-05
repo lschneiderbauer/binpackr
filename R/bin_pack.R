@@ -11,6 +11,10 @@
 #' @returns A integer vector of labels of the same length as `x`. The integer
 #'          label at position `i` determines the assignment of the `i`th item
 #'          with size `x[i]` to a bin.
+#' @details See [Wikipedia](https://en.wikipedia.org/wiki/First-fit_bin_packing)
+#'          for a concise introduction or
+#'          "The Art of Computer Programming Vol. 1" by Donald E. Knuth
+#'          (1997, ISBN: 0201896834) for more details.
 #' @examples
 #' # Generate a vector of item sizes
 #' x <- sample(100, 1000, replace = TRUE)

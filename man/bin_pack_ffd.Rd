@@ -26,6 +26,12 @@ with size \code{x[i]} to a bin.
 \description{
 1D bin packing "First Fit (Decreasing)" algorithm
 }
+\details{
+See \href{https://en.wikipedia.org/wiki/First-fit_bin_packing}{Wikipedia}
+for a concise introduction or
+"The Art of Computer Programming Vol. 1" by Donald E. Knuth
+(1997, ISBN: 0201896834) for more details.
+}
 \examples{
 # Generate a vector of item sizes
 x <- sample(100, 1000, replace = TRUE)
