@@ -98,7 +98,9 @@ vector<vector<double>::size_type> ffd_fast(const vector<double> &items, double c
 
     for (vector<double>::size_type i = 0; i < n_items; i++)
     {
-        double item_size = items[i];
+        // in case the item size is greater then cap
+        // just pretend it is equal the full capacity
+        double item_size = min(cap, items[i]);
 
         if (tree.empty() || tree[0] < item_size)
         {

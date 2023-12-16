@@ -58,4 +58,10 @@ test_that("Size bigger then cap simply yield one bin.", {
     bin_pack_ffd(x, cap = 1, sort = FALSE),
     c(0, 1, 2, 2)
   )
+
+  expect_equal(
+    bin_pack_ffd(c(11, 11, 11, 3, 7), cap = 10),
+    c(0, 1, 2, 3, 3)
+  )
+})
 })
