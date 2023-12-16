@@ -81,7 +81,7 @@ vector<double>::size_type query(vector<double>::size_type node,
         return (start);
     }
     vector<double>::size_type mid = (start + end) / 2;
-    if (tree[2 * node + 1] >= val || fabs(val - tree[2 * node + 1]) < __DBL_EPSILON__)
+    if (tree[2 * node + 1] >= val - __DBL_EPSILON__)
     {
         return (query(2 * node + 1, start, mid, val, tree));
     }
@@ -115,18 +115,16 @@ vector<vector<double>::size_type> ffd_fast(const vector<double> &items, double c
             build(0, 0, A.size() - 1, A, tree);
         }
 
-        vector<double>::size_type idx = query(0, 0, A.size() - 1, item_size, tree);
+        vector<double>::size_type idx =
+          min(b, query(0, 0, A.size() - 1, item_size, tree));
 
-        if (idx < b)
+        IBM.push_back(idx); // Current item was put in idx-th bin
+        update(0, 0, A.size() - 1, idx, A[idx] - item_size, A, tree); // Update segment tree
+
+
+        if (idx >= b)
         {
-            IBM.push_back(idx); // Current item was put in idx-th bin
-            update(0, 0, A.size() - 1, idx, A[idx] - item_size, A, tree); // Update segment tree
-        }
-        else
-        {
-            IBM.push_back(b); // Current item was put in new bin
-            update(0, 0, A.size() - 1, idx, cap - item_size, A, tree); // Update segment tree
-            b++;                                                // Increased number of used bins
+            b++; // Increased number of used bins
         }
     }
 
