@@ -11,7 +11,8 @@ RoxygenNote: 7.2.3
 LinkingTo: cpp11
 Suggests:
     testthat (>= 3.0.0),
-    hedgehog (>= 0.1)
+    hedgehog (>= 0.1),
+    BBmisc (>= 1.13)
 Config/testthat/edition: 3
 URL: https://github.com/lschneiderbauer/binpackr
 BugReports: https://github.com/lschneiderbauer/binpackr/issues

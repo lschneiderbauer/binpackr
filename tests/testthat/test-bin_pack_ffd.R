@@ -64,4 +64,22 @@ test_that("Size bigger then cap simply yield one bin.", {
     c(0, 1, 2, 3, 3)
   )
 })
+
+test_that("Results are the same as BBmisc reference implementation", {
+  hedgehog::forall(
+    list(
+      size = hedgehog::gen.int(100),
+      length = hedgehog::gen.int(1000),
+      cap_factor = hedgehog::gen.int(10)
+    ),
+    function(size, length, cap_factor) {
+      x <- rep(size, length)
+      cap <- size * cap_factor
+
+      expect_equal(
+        bin_pack_ffd(x, cap) + 1,
+        BBmisc::binPack(x, cap)
+      )
+    }
+  )
 })
