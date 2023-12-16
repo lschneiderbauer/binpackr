@@ -14,5 +14,5 @@ Suggests:
     hedgehog (>= 0.1),
     BBmisc (>= 1.13)
 Config/testthat/edition: 3
-URL: https://github.com/lschneiderbauer/binpackr
+URL: https://github.com/lschneiderbauer/binpackr, https://lschneiderbauer.github.io/binpackr/
 BugReports: https://github.com/lschneiderbauer/binpackr/issues
