@@ -3,7 +3,6 @@
  * https://cs.stackexchange.com/questions/108859/bin-packing-first-fit-problem-in-on-log-n-time
  * and modified as required.
  */
-
 #include <vector>
 #include <cmath>
 using namespace std;
@@ -11,6 +10,9 @@ using namespace std;
 void make_base(vector<double>::size_type L,
                vector<double> &A, vector<double> &tree, double cap)
 {
+    A.reserve(L);
+    tree.reserve(4 * L + 5);
+
     for (vector<double>::size_type i = A.size(); i < L; i++)
     {
         A.push_back(cap); // New bins will be empty
