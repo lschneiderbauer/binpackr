@@ -58,7 +58,8 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>A numeric vector of item sizes to be fit into bins. Each value
-represents the size of an atomic item.</p></dd>
+represents the size of an atomic item. If a value is <code>NA</code> it is
+ignored and the corresponding result will also be <code>NA</code>.</p></dd>
 
 
 <dt>cap</dt>
@@ -79,7 +80,8 @@ decreasing order before applying the "First Fit" algorithm
 
 <p>A integer vector of labels of the same length as <code>x</code>. The integer
 label at position <code>i</code> determines the assignment of the <code>i</code>th item
-with size <code>x[i]</code> to a bin.</p>
+with size <code>x[i]</code> to a bin. If the value <code>x[i]</code> is <code>NA</code> the result
+label at position <code>i</code> will also be <code>NA</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -99,7 +101,7 @@ for a concise introduction or
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Number of bins needed to pack the items</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">bins</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 399</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 393</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
