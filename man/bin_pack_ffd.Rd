@@ -8,7 +8,8 @@ bin_pack_ffd(x, cap, sort = TRUE)
 }
 \arguments{
 \item{x}{A numeric vector of item sizes to be fit into bins. Each value
-represents the size of an atomic item.}
+represents the size of an atomic item. If a value is \code{NA} it is
+ignored and the corresponding result will also be \code{NA}.}
 
 \item{cap}{Bin capacity in units of values in \code{x}. A scalar value. If
 an individual item size is above \code{cap} a single bin is reserved
@@ -21,7 +22,8 @@ decreasing order before applying the "First Fit" algorithm
 \value{
 A integer vector of labels of the same length as \code{x}. The integer
 label at position \code{i} determines the assignment of the \code{i}th item
-with size \code{x[i]} to a bin.
+with size \code{x[i]} to a bin. If the value \code{x[i]} is \code{NA} the result
+label at position \code{i} will also be \code{NA}.
 }
 \description{
 1D bin packing "First Fit (Decreasing)" algorithm

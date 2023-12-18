@@ -65,6 +65,15 @@ test_that("Size bigger then cap simply yield one bin.", {
   )
 })
 
+test_that("NAs are treated correctly.", {
+  x <- c(1, 2, 3, NA, 4, 5)
+
+  expect_equal(
+    bin_pack_ffd(x, 5),
+    c(1, 2, 2, NA, 1, 0)
+  )
+})
+
 test_that("Results are the same as BBmisc reference implementation", {
   skip_if_not_installed("BBmisc", "1.13")
 
