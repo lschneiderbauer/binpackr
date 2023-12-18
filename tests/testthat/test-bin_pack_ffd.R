@@ -66,6 +66,8 @@ test_that("Size bigger then cap simply yield one bin.", {
 })
 
 test_that("Results are the same as BBmisc reference implementation", {
+  skip_if_not_installed("BBmisc", "1.13")
+
   hedgehog::forall(
     list(
       size = hedgehog::gen.int(100),
