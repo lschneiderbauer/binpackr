@@ -69,10 +69,11 @@ library(ggplot2)
 library(dplyr)
 ```
 
-### Run time
+### Run time (logarithmic scale)
 
 ```{r benchmark_runtime, echo = FALSE}
 result |>
+  filter(n_bins > 1) |>
   mutate(
     ymin = as.numeric(mean - std),
     ymax = as.numeric(mean + std),
@@ -88,14 +89,13 @@ result |>
       scale_cut = scales::cut_long_scale()
     )
   ) +
-  scale_y_continuous(
+  scale_y_log10(
     name = "Runtime (in seconds)",
     labels = scales::label_number(
       suffix = "s",
       scale_cut = scales::cut_long_scale()
     )
   ) +
-  geom_ribbon(alpha = 0.3, linewidth = 0) +
   geom_point() +
   geom_line() +
   theme_minimal() +
@@ -126,5 +126,5 @@ result |>
   facet_wrap(vars(name), scales = "free_y", ncol = 1) +
   theme_minimal() +
   theme(legend.position = "bottom") +
-  labs(fill = "Implementation", color = "Implementation")
+  labs(color = "Implementation")
 ```

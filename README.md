@@ -64,16 +64,10 @@ made it clear that speed was none of their concern. BBmisc’s
 implementation is written in R while this package uses a C++
 implementation.
 
-### Run time
-
-    #> Warning: Removed 3 rows containing missing values or values outside the scale range
-    #> (`geom_ribbon()`).
+### Run time (logarithmic scale)
 
 <img src="man/figures/README-benchmark_runtime-1.png" alt="" width="100%" />
 
 ### Memory allocation
-
-    #> Ignoring unknown labels:
-    #> • fill : "Implementation"
 
 <img src="man/figures/README-benchmark_memory-1.png" alt="" width="100%" />
