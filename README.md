@@ -7,9 +7,9 @@
 
 [![R-CMD-check](https://github.com/lschneiderbauer/binpackr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lschneiderbauer/binpackr/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/lschneiderbauer/binpackr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/lschneiderbauer/binpackr?branch=master)
+coverage](https://codecov.io/gh/lschneiderbauer/binpackr/graph/badge.svg)](https://app.codecov.io/gh/lschneiderbauer/binpackr)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/binpackr)](https://CRAN.R-project.org/package=binpackr)
 
@@ -66,8 +66,14 @@ implementation.
 
 ### Run time
 
-<img src="man/figures/README-benchmark_runtime-1.png" width="100%" />
+    #> Warning: Removed 3 rows containing missing values or values outside the scale range
+    #> (`geom_ribbon()`).
+
+<img src="man/figures/README-benchmark_runtime-1.png" alt="" width="100%" />
 
 ### Memory allocation
 
-<img src="man/figures/README-benchmark_memory-1.png" width="100%" />
+    #> Ignoring unknown labels:
+    #> • fill : "Implementation"
+
+<img src="man/figures/README-benchmark_memory-1.png" alt="" width="100%" />
