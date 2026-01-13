@@ -1,6 +1,8 @@
 # Changelog
 
-## binpackr (development version)
+## binpackr 0.2.0
+
+CRAN release: 2026-01-12
 
 - [`bin_pack_ffd()`](https://lschneiderbauer.github.io/binpackr/reference/bin_pack_ffd.md):
   fixed wrong item distribution in some cases when item sizes were
