@@ -1,5 +1,7 @@
 # Changelog
 
+## binpackr (development version)
+
 ## binpackr 0.2.0
 
 CRAN release: 2026-01-12
