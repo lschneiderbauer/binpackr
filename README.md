@@ -70,4 +70,8 @@ implementation.
 
 ### Memory allocation
 
+The total amount of memory allocated during one call, including
+allocations made by the C++ code (which `bench::mark()` does not record
+on its own; see `benchmark/count_alloc.cpp`).
+
 <img src="man/figures/README-benchmark_memory-1.png" alt="" width="100%" />

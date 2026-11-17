@@ -3,7 +3,27 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-bmark <- function(fns) {
+# Benchmarks the *installed* version of binpackr: install the current state
+# first (e.g. `devtools::install()`), since `devtools::load_all()` compiles
+# without optimization and would distort run times.
+library(binpackr)
+
+# `bench::mark()` only records R allocations. Compile an instrumented copy of
+# the C++ core that counts its heap allocations as well (see count_alloc.cpp).
+local({
+  src <- readLines("./benchmark/count_alloc.cpp")
+  src <- sub(
+    "../src/first_fit_fast.cpp", normalizePath("./src/first_fit_fast.cpp"),
+    src,
+    fixed = TRUE
+  )
+  cpp11::cpp_source(code = src, quiet = TRUE, env = globalenv())
+})
+
+# `fns`: named list of implementations `f(x, cap)`.
+# `cpp_mem`: named list of functions `g(x, cap)` returning the bytes allocated
+#   outside of R for that implementation (missing names count as 0).
+bmark <- function(fns, cpp_mem = list()) {
   reduce(
     map(
       # seq(1, 10000, length.out = 2),
@@ -56,7 +76,23 @@ bmark <- function(fns) {
             .keep = "none"
           )
 
+        mem_cpp <-
+          tibble(
+            name = names(fns),
+            mem_alloc_cpp = map_dbl(
+              names(fns),
+              \(nm) if (is.null(cpp_mem[[nm]])) 0 else cpp_mem[[nm]](x, cap)
+            )
+          )
+
         bres |>
+          left_join(mem_cpp, by = "name") |>
+          mutate(
+            mem_alloc_r = mem_alloc,
+            mem_alloc = bench::as_bench_bytes(
+              as.numeric(mem_alloc_r) + mem_alloc_cpp
+            )
+          ) |>
           left_join(waste, by = "name") |>
           mutate(n = !!n)
       },
@@ -72,6 +108,10 @@ result <-
       bbmisc = BBmisc::binPack,
       cpp_ffd = partial(bin_pack_ffd, sort = FALSE),
       cpp_ffd_sort = partial(bin_pack_ffd)
+    ),
+    cpp_mem = list(
+      cpp_ffd = \(x, cap) cpp_alloc_bytes(x, cap),
+      cpp_ffd_sort = \(x, cap) cpp_alloc_bytes(sort(x, decreasing = TRUE), cap)
     )
   )
 

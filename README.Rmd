@@ -74,15 +74,8 @@ library(dplyr)
 ```{r benchmark_runtime, echo = FALSE}
 result |>
   filter(n_bins > 1) |>
-  mutate(
-    ymin = as.numeric(mean - std),
-    ymax = as.numeric(mean + std),
-    median = as.numeric(median)
-  ) |>
-  ggplot(aes(
-    x = n, y = median, color = name, fill = name,
-    ymin = ymin, ymax = ymax
-  )) +
+  mutate(median = as.numeric(median)) |>
+  ggplot(aes(x = n, y = median, color = name, fill = name)) +
   scale_x_continuous(
     name = "Number of items",
     labels = scales::label_number(
@@ -104,6 +97,8 @@ result |>
 ```
 
 ### Memory allocation
+
+The total amount of memory allocated during one call, including allocations made by the C++ code (which `bench::mark()` does not record on its own; see `benchmark/count_alloc.cpp`).
 
 ```{r benchmark_memory, echo = FALSE}
 result |>
