@@ -2,14 +2,14 @@
 
 This package implements the First Fit Decreasing algorithm to achieve
 one dimensional heuristic bin packing. Its run time is of order
-$\mathcal{O}\left( n\, log(n) \right)$ where $n$ is the number of items
-to pack.
+$`\mathcal{O}(n\,log(n))`$ where $`n`$ is the number of items to pack.
 
 ## Installation
 
 You can install the latest CRAN release of binpackr with:
 
 ``` r
+
 install.packages("binpackr")
 ```
 
@@ -17,6 +17,7 @@ Alternatively, you can install the development version of binpackr from
 [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("lschneiderbauer/binpackr")
 ```
@@ -27,6 +28,7 @@ This is a basic example which shows to retrieve the solution for the bin
 packing problem.
 
 ``` r
+
 library(binpackr)
 
 # Generate a vector of item sizes
@@ -55,5 +57,9 @@ implementation.
 ![](reference/figures/README-benchmark_runtime-1.png)
 
 ### Memory allocation
+
+The total amount of memory allocated during one call, including
+allocations made by the C++ code (which `bench::mark()` does not record
+on its own; see `benchmark/count_alloc.cpp`).
 
 ![](reference/figures/README-benchmark_memory-1.png)
