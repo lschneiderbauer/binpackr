@@ -39,8 +39,14 @@ bin_pack_ffd <- function(x, cap, sort = TRUE) {
   x <- as.numeric(x)
   cap <- as.numeric(cap)
 
-  is_na <- is.na(x)
-  x2 <- x[!is_na]
+  # Fast path: skip NA bookkeeping (and its copies) when there are no NAs.
+  has_na <- anyNA(x)
+  if (has_na) {
+    is_na <- is.na(x)
+    x2 <- x[!is_na]
+  } else {
+    x2 <- x
+  }
 
   if (sort) {
     ord <- order(x2, decreasing = TRUE)
@@ -50,6 +56,11 @@ bin_pack_ffd <- function(x, cap, sort = TRUE) {
     y <- .Call(`_binpackr_first_fit_decreasing_fast`, x2, cap)
   }
 
-  x[!is_na] <- y
-  return(x)
+  if (!has_na) {
+    return(y)
+  }
+
+  res <- rep(NA_integer_, length(x))
+  res[!is_na] <- y
+  return(res)
 }

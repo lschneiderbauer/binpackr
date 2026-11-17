@@ -5,6 +5,8 @@
  */
 #include <vector>
 #include <cmath>
+#include <cstddef>
+#include "first_fit_fast.h"
 using namespace std;
 
 void make_base(vector<double>::size_type L,
@@ -88,13 +90,10 @@ vector<double>::size_type query(vector<double>::size_type node,
     return (query(2 * node + 2, mid + 1, end, val, tree));
 }
 
-vector<vector<double>::size_type> ffd_fast(const vector<double> &items, double cap)
+void ffd_fast(const double *items, size_t n_items, double cap, int *out)
 {
-    vector<double>::size_type n_items = items.size();
-
     vector<double>::size_type b = 0; // Current number of bins
 
-    vector<vector<double>::size_type> IBM; // Item->bin matching: IBM[i] = bin of i-th item
     vector<double> A;    // Vector with bin remaining sizes used by segment tree
     vector<double> tree; // Vector with segment tree's values
 
@@ -118,15 +117,12 @@ vector<vector<double>::size_type> ffd_fast(const vector<double> &items, double c
         vector<double>::size_type idx =
           min(b, query(0, 0, A.size() - 1, item_size, tree));
 
-        IBM.push_back(idx); // Current item was put in idx-th bin
+        out[i] = static_cast<int>(idx); // Current item was put in idx-th bin
         update(0, 0, A.size() - 1, idx, A[idx] - item_size, A, tree); // Update segment tree
-
 
         if (idx >= b)
         {
             b++; // Increased number of used bins
         }
     }
-
-    return (IBM);
 }

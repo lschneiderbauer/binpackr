@@ -1,3 +1,4 @@
-#include <vector>
+#include <cstddef>
 
-std::vector<std::vector<double>::size_type> ffd_fast(const std::vector<double>&, double);
+// Writes the 0-based bin label of items[i] to out[i]. `out` must hold n_items ints.
+void ffd_fast(const double *items, std::size_t n_items, double cap, int *out);
